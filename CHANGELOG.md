@@ -12,6 +12,9 @@
 - Validate exact SDK/firmware paths and offline firmware execution. Pass the
   approved WiFi-W create/rename/delete test with identical renamed audio and the
   original inventory/settings preserved; no camera playback.
+- Include original local HA branding and public setup/security documentation.
+- Declare the HTTP dependency used by preview delivery and the valid
+  `local_polling` manifest class; validate publication with HACS and hassfest.
 
 ## 0.1.0 — 2026-11-02
 

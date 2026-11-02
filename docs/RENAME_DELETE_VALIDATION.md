@@ -66,7 +66,8 @@ Silent audio SHA-256:
 `67042dfda5683aead81b6055d19c4dba238341f9dd82f49c0e7cc0c19c5f10d1`.
 The tested pre-branding ZIP SHA-256 was
 `900863e99c576eee1da76d07a29fbd680eab73f9e7421d57245bb0c4a25226aa`.
-The public release has the same Python implementation with added PNG branding;
+The public release has the same Python implementation with added PNG branding
+and corrected HTTP dependency / polling-class manifest metadata;
 its separate checksum is supplied with the release. Private receipts, device
 identifiers, personal recording names and backup locations are excluded.
 
