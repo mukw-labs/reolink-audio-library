@@ -9,9 +9,17 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUNBUFFERED: "1"
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -24,11 +32,12 @@ jobs:
       - run: pip install -r requirements-test.txt
       - run: ruff check .
       - run: ruff format --check .
-      - run: pytest -v
+      - run: pytest -q
 
   test-ha:
     name: pytest inside Home Assistant (${{ matrix.requirements }})
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -39,4 +48,4 @@ jobs:
         with:
           python-version: "3.14"
       - run: pip install -r ${{ matrix.requirements }}
-      - run: pytest -v
+      - run: pytest -q --timeout=60 --maxfail=1
