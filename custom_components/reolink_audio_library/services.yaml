@@ -1,0 +1,107 @@
+list_audio:
+  name: List saved recordings
+  description: Read factory and custom recording names, occupied slots and free capacity. No audio is played.
+  fields:
+    device_id:
+      name: Camera
+      description: An existing Reolink device selected in Audio Library's configuration.
+      required: true
+      selector:
+        device:
+          filter:
+            - integration: reolink
+upload_audio:
+  name: Upload custom audio
+  description: Save a new recording in a free custom slot. Select a local HA media file up to 10 seconds long. Uploading never plays audio or replaces an existing recording.
+  fields:
+    device_id:
+      name: Camera
+      description: An existing Reolink device selected in Audio Library's configuration.
+      required: true
+      selector:
+        device:
+          filter:
+            - integration: reolink
+    media:
+      name: Audio file
+      description: Choose a WAV, MP3 or other audio file from My media. Add files through HA's Media page first.
+      selector:
+        media:
+          accept:
+            - audio/*
+    name:
+      name: Recording name
+      description: A unique name for the recording, up to 127 UTF-8 bytes.
+      required: true
+      example: Please leave the parcel
+      selector:
+        text:
+    media_content_id:
+      name: Media-source identifier
+      description: A local media-source identifier, as an alternative to the audio file picker.
+      advanced: true
+      selector:
+        text:
+
+rename_audio:
+  name: Rename custom recording
+  description: Rename an existing custom recording without re-uploading its audio. Factory recordings are protected. The name and all other recordings are verified after reconnect.
+  fields:
+    device_id:
+      name: Camera
+      required: true
+      selector:
+        device:
+          filter:
+            - integration: reolink
+    recording:
+      name: Saved recording
+      description: Choose a custom recording under Reolink Audio Library, then the selected camera. This selects metadata and does not play the recording.
+      selector:
+        media:
+          accept:
+            - audio/*
+    new_name:
+      name: New recording name
+      description: A unique name, up to 127 UTF-8 bytes.
+      required: true
+      selector:
+        text:
+    media_content_id:
+      name: Recording media identifier
+      description: Advanced alternative to the saved recording picker. Use its current identifier from List saved recordings.
+      advanced: true
+      selector:
+        text:
+
+delete_audio:
+  name: Delete custom recording
+  description: Permanently delete the selected custom recording. Factory recordings and the configured automatic reply are protected. All remaining recordings are verified after reconnect.
+  fields:
+    device_id:
+      name: Camera
+      required: true
+      selector:
+        device:
+          filter:
+            - integration: reolink
+    recording:
+      name: Saved recording
+      description: Choose a custom recording under Reolink Audio Library, then the selected camera. This does not play it. Choose a different automatic reply in Reolink first if this recording is assigned.
+      selector:
+        media:
+          accept:
+            - audio/*
+    confirm_delete:
+      name: Confirm deletion
+      description: Delete this recording permanently from the camera.
+      required: true
+      default: false
+      selector:
+        boolean:
+    media_content_id:
+      name: Recording media identifier
+      description: Advanced alternative to the saved recording picker. Use its current identifier from List saved recordings.
+      advanced: true
+      selector:
+        text:

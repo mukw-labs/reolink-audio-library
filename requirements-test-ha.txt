@@ -1,0 +1,9 @@
+# Full Home Assistant test harness. Pins the exact HA release (needs Python >= 3.14
+# for HA >= 2026.3). Keep in sync with the HA version you run in production.
+pytest-homeassistant-custom-component==0.13.364
+reolink-aio==0.21.15
+# The core "reolink" integration (our manifest dependency) imports the camera
+# component, which needs PyTurboJPEG at import time. Take the pin from
+# homeassistant/components/camera/manifest.json of the HA release above.
+PyTurboJPEG==1.8.3
+ruff>=0.8

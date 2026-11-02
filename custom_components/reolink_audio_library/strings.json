@@ -1,0 +1,34 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Reolink Audio Library",
+        "description": "Upload and browse recordings using cameras already configured in the official Reolink integration. Only validated devices support uploads and previews.",
+        "data": {
+          "reolink_entry_ids": "Cameras"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Reolink Audio Library is already configured.",
+      "reolink_required": "Configure a camera in the official Reolink integration first.",
+      "single_instance_allowed": "Reolink Audio Library is already configured."
+    },
+    "error": {
+      "select_camera": "Select at least one existing Reolink camera."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Reolink Audio Library cameras",
+        "data": {
+          "reolink_entry_ids": "Cameras"
+        }
+      }
+    },
+    "error": {
+      "select_camera": "Select at least one existing Reolink camera."
+    }
+  }
+}

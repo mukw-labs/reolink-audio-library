@@ -1,0 +1,16 @@
+{
+  "services": {
+    "list_audio": {
+      "service": "mdi:format-list-bulleted"
+    },
+    "upload_audio": {
+      "service": "mdi:cloud-upload-outline"
+    },
+    "rename_audio": {
+      "service": "mdi:rename-outline"
+    },
+    "delete_audio": {
+      "service": "mdi:delete-outline"
+    }
+  }
+}

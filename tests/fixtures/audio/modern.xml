@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic source-derived fixture, not a hardware capture. -->
+<body>
+  <audioFileInfoList version="1.1">
+    <maxFileNumber>17</maxFileNumber>
+    <audioFileInfo>
+      <id>0</id>
+      <fileName>Wait &amp; welcome</fileName>
+      <fileSize>48000</fileSize>
+      <audioLen>8500</audioLen>
+      <extId>ext-1</extId>
+      <type>reply</type>
+      <unrecognized>Preserve known fields</unrecognized>
+    </audioFileInfo>
+    <audioFileInfo>
+      <id>9</id>
+      <fileName>日本語の録音</fileName>
+    </audioFileInfo>
+  </audioFileInfoList>
+</body>

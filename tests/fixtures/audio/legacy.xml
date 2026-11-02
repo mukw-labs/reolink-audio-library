@@ -1,0 +1,12 @@
+<!-- Synthetic firmware-described legacy layout, not a hardware capture. -->
+<body>
+  <audioFileInfoList version="1.1">
+    <maxFileNumber>7</maxFileNumber>
+    <item>
+      <id>42</id>
+      <customName>Leave parcel</customName>
+      <fileSize>16000</fileSize>
+      <audioLen>300</audioLen>
+    </item>
+  </audioFileInfoList>
+</body>

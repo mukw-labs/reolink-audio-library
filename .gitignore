@@ -1,0 +1,57 @@
+# Python and development environments
+__pycache__/
+*.py[cod]
+.venv*/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage*
+htmlcov/
+# Generated packages, local evidence and research
+artifacts/
+output/
+tmp/
+dist/
+build/
+*.egg-info/
+# Credentials and local Home Assistant data
+.env
+.env.*
+!.env.example
+secrets.yaml
+secrets.*.yaml
+.storage/
+/config/
+/backups/
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.log
+# Local editor, OS and operator notes
+.vscode/
+.idea/
+.DS_Store
+._*
+AGENTS.md
+# Private captures, recordings and vendor research inputs
+/research/
+/captures/
+/recordings/
+/private/
+*.pcap
+*.pcapng
+*.har
+*.apk
+*.pak
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+configuration.yaml
+*.db
+*.db-shm
+*.db-wal
+*.sqlite*

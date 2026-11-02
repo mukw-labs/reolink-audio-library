@@ -1,0 +1,7 @@
+# Current stable HA (2026.10.4, reviewed 2026-10-30), in addition to the
+# existing 2026.9.1 regression harness. Use Python 3.14.
+pytest-homeassistant-custom-component==0.13.375
+# Match homeassistant/components/reolink/manifest.json for this Core release.
+reolink-aio==0.21.18
+PyTurboJPEG==1.8.3
+ruff>=0.8
