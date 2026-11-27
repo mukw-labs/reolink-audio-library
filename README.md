@@ -76,7 +76,7 @@ See the [HACS custom repository guide](https://www.hacs.xyz/docs/faq/custom_repo
 
 ### Manual installation
 
-Download `reolink-audio-library-0.2.0.zip` from the
+Download `reolink-audio-library-0.2.1.zip` from the
 [latest release](https://github.com/mukw-labs/reolink-audio-library/releases/latest).
 Extract its `custom_components/reolink_audio_library` directory into your Home
 Assistant configuration directory, keeping that folder structure. Restart HA,

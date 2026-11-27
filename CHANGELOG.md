@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.1 — 2026-11-27
 
 - Allow other firmware versions on the supported standalone WiFi-W hardware
   while keeping the live recording protocol and reconnect checks.
