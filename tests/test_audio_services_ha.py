@@ -45,7 +45,6 @@ async def audio_setup(hass, enable_custom_integrations):
             channels=[0],
             camera_model=Mock(return_value=profile.model if title == "Front" else "Unsupported"),
             camera_hardware_version=Mock(return_value=profile.hardware),
-            camera_sw_version=Mock(return_value=profile.firmware),
             baichuan=SimpleNamespace(send=AsyncMock(), QuickReplyPlay=AsyncMock()),
             play_quick_reply=AsyncMock(),
             logout=AsyncMock(),

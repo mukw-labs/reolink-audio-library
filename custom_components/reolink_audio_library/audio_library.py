@@ -33,13 +33,12 @@ def shared_api(hass, entry_id: str, channel: int):
 
 
 def cached_profile(api, channel: int) -> UploadProfile | None:
-    """Cached identity is a UI hint only; every upload verifies live identity."""
+    """Match cached model and hardware for the UI hint."""
     try:
         return profile_for_device_info(
             {
                 "type": api.camera_model(None),
                 "hardwareVersion": api.camera_hardware_version(None),
-                "firmwareVersion": api.camera_sw_version(None),
             },
             channel,
         )

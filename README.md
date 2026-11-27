@@ -34,16 +34,21 @@ of the other recordings after reconnecting.
 
 ## Supported device and requirements
 
-Support is currently restricted to this physically validated profile:
+The integration enables recording operations for this model and hardware on a
+standalone connection:
 
-| Model | Hardware | Firmware | Connection |
+| Model | Hardware | Firmware tested on hardware | Connection |
 | --- | --- | --- | --- |
 | Reolink Video Doorbell WiFi-W | `DB_566128M5MP_W_W` | `v3.0.0.6460_2605211912` | Standalone, channel 0 |
 
-Other models, firmware versions and NVR-connected channels are not enabled for
-recording operations. General two-way audio support does not establish upload
-support. If your profile differs, please open a compatibility request with the
-model, hardware and firmware versions; do not include credentials or recordings.
+Other firmware versions on the listed hardware are eligible when the camera
+passes the applicable recording inventory and protocol checks. Upload also
+requires the camera to report the expected audio format. Physical testing
+covers the firmware listed above.
+
+Recording operations require the listed model and hardware on standalone
+channel 0. For a compatibility request, include the model, hardware and
+firmware versions. Omit credentials and recordings.
 
 - Home Assistant **2026.9.0 or newer**.
 - The official **Reolink** integration already configured for the camera.

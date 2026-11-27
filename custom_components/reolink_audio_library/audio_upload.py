@@ -7,7 +7,7 @@ all sessions; closing an interrupted session lets firmware clean its staging.
 from __future__ import annotations
 
 from contextlib import AbstractAsyncContextManager
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import math
 from typing import Callable
 from uuid import uuid4
@@ -28,11 +28,12 @@ from .stored_audio import (
 
 @dataclass(frozen=True)
 class UploadProfile:
-    """A specifically validated model/hardware/firmware and its native limits."""
+    """A camera model and hardware profile with its native limits."""
 
     model: str = "Reolink Video Doorbell WiFi-W"
     hardware: str = "DB_566128M5MP_W_W"
-    firmware: str = "v3.0.0.6460_2605211912"
+    # The observed version lets write verification detect a change across sessions.
+    firmware: str | None = None
     sample_rate: int = 16000
     max_duration: float = 10.0
     max_payload_bytes: int = 184320
@@ -79,17 +80,13 @@ def profile_for_device_info(info: dict, channel: int = 0) -> UploadProfile:
     profile = RESEARCHED_WIFI_W
     if type(channel) is not int or channel != 0:
         raise AudioUploadError("The researched upload profile supports a standalone camera on channel 0 only")
-    if not isinstance(info, dict) or (
-        info.get("type"),
-        info.get("hardwareVersion"),
-        info.get("firmwareVersion"),
-    ) != (
+    if not isinstance(info, dict) or (info.get("type"), info.get("hardwareVersion")) != (
         profile.model,
         profile.hardware,
-        profile.firmware,
     ):
-        raise AudioUploadError("No researched stored-audio upload profile matches this camera and firmware")
-    return profile
+        raise AudioUploadError("No researched stored-audio profile matches this camera model and hardware")
+    firmware = info.get("firmwareVersion")
+    return replace(profile, firmware=firmware) if isinstance(firmware, str) and firmware else profile
 
 
 def _validate_prepared(audio: PreparedAudio, profile: UploadProfile) -> None:

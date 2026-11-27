@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Allow other firmware versions on the supported standalone WiFi-W hardware
+  while keeping the live recording protocol and reconnect checks.
+
 ## 0.2.0 — 2026-11-02
 
 - Add admin-only Rename custom recording and confirmed Delete custom recording

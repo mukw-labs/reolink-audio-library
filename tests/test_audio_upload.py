@@ -209,9 +209,9 @@ async def test_unresearched_channel_is_rejected_before_connection(candidate, cha
     candidate.connect.assert_not_called()
 
 
-@pytest.mark.parametrize("field", ["type", "hardwareVersion", "firmwareVersion"])
-async def test_device_identity_must_match_the_exact_researched_profile(candidate, field):
-    candidate.camera.identity[field] = "another-device-or-firmware"
+@pytest.mark.parametrize("field", ["type", "hardwareVersion"])
+async def test_device_identity_must_match_the_researched_model_and_hardware(candidate, field):
+    candidate.camera.identity[field] = "another-device"
     with pytest.raises(AudioUploadError, match="No researched") as caught:
         await _upload(candidate)
     assert caught.value.outcome_uncertain is False
@@ -219,8 +219,9 @@ async def test_device_identity_must_match_the_exact_researched_profile(candidate
     candidate.transport.assert_not_awaited()
 
 
-def test_profile_lookup_returns_only_the_exact_identity():
-    assert profile_for_device_info(IDENTITY) is audio_upload.RESEARCHED_WIFI_W
+def test_profile_lookup_accepts_identity_without_a_reported_firmware():
+    identity = {key: IDENTITY[key] for key in ("type", "hardwareVersion")}
+    assert profile_for_device_info(identity) is audio_upload.RESEARCHED_WIFI_W
     with pytest.raises(AudioUploadError):
         profile_for_device_info({})
 
@@ -260,7 +261,9 @@ async def test_malformed_or_oversize_prepared_audio_is_rejected_without_connecti
     candidate.transport.assert_not_awaited()
 
 
-async def test_success_requires_two_distinct_owned_sessions_and_reports_device_assigned_id(candidate):
+@pytest.mark.parametrize("firmware", [IDENTITY["firmwareVersion"], "another-firmware"])
+async def test_success_requires_two_distinct_owned_sessions_and_reports_device_assigned_id(candidate, firmware):
+    candidate.camera.identity["firmwareVersion"] = firmware
     candidate.camera.custom.append(_user_record())
     candidate.camera.new_id = 9
     previous = candidate.camera.custom[0].copy()
@@ -413,6 +416,7 @@ async def test_preflight_requires_complete_consistent_preservation_metadata(cand
     ("value", "replacement"), [("adpcm", "g711"), ("16000", "8000"), ("16", "8"), ("mono", "stereo")]
 )
 async def test_reported_codec_must_match_the_profile(candidate, value, replacement):
+    candidate.camera.identity["firmwareVersion"] = "another-firmware"
     candidate.camera.capabilities = CAPABILITIES.replace(f">{value}<", f">{replacement}<")
     with pytest.raises(AudioUploadError, match="reported audio capability"):
         await _upload(candidate)
@@ -539,9 +543,11 @@ async def test_identity_is_rechecked_after_reconnect(candidate):
     candidate.camera.on_close = lambda index: (
         candidate.camera.identity.update(firmwareVersion="changed-firmware") if index == 0 else None
     )
-    with pytest.raises(AudioUploadError, match="No researched"):
+    with pytest.raises(AudioUploadError, match="Camera identity changed") as caught:
         await _upload(candidate)
+    assert caught.value.outcome_uncertain is True
     assert candidate.camera.closed == [0, 1]
+    candidate.transport.assert_awaited_once()
 
 
 async def test_native_inventory_must_also_confirm_the_new_recording(candidate):

@@ -32,7 +32,7 @@ class Camera:
         self.info = {
             "type": RESEARCHED_WIFI_W.model,
             "hardwareVersion": RESEARCHED_WIFI_W.hardware,
-            "firmwareVersion": RESEARCHED_WIFI_W.firmware,
+            "firmwareVersion": "another-firmware",
         }
         self.capacity = 12
         self.auto = (0, -1, 2)
@@ -335,11 +335,19 @@ async def test_default_gates_precede_all_io(camera):
 
 
 async def test_live_identity_is_required_before_write(camera):
-    camera.info["firmwareVersion"] = "unverified-firmware"
+    camera.info["hardwareVersion"] = "unrecognized-hardware"
     with pytest.raises(RecordingChangeError) as error:
         await change(camera)
     assert not error.value.outcome_uncertain
     assert not camera.packets
+
+
+async def test_firmware_change_during_edit_leaves_verification_uncertain(camera):
+    camera.on_close = lambda device: device.info.update(firmwareVersion="changed-firmware")
+    with pytest.raises(RecordingChangeError, match="Camera identity or recording capacity changed") as error:
+        await change(camera)
+    assert error.value.outcome_uncertain
+    assert len(camera.packets) == 1
 
 
 async def test_uuid_and_other_metadata_survive_delete_of_legacy_record(camera):

@@ -33,7 +33,7 @@ async def recording(hass, audio_setup, supported_library):
                 return_value={
                     "type": catalog.profile.model,
                     "hardwareVersion": catalog.profile.hardware,
-                    "firmwareVersion": catalog.profile.firmware,
+                    "firmwareVersion": "another-firmware",
                 }
             )
         )

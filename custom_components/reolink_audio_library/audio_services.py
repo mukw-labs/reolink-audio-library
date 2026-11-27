@@ -68,7 +68,7 @@ def _library_for_device(hass, device_id):
                 continue
             try:
                 if library.profile is None:
-                    raise ServiceValidationError("No validated recording profile matches this camera and firmware")
+                    raise ServiceValidationError("No recording profile matches this camera model and hardware")
             except StoredAudioError as error:
                 raise ServiceValidationError(str(error)) from None
             return library
@@ -230,7 +230,7 @@ async def async_upload_for_library(hass, library, *, device_id, name, media_cont
     """Create a recording, verify it after reconnect and never play it."""
     profile = library.profile
     if profile is None:
-        raise ServiceValidationError("No validated recording profile matches this camera and firmware")
+        raise ServiceValidationError("No recording profile matches this camera model and hardware")
     try:
         validate_recording_name(name)
     except StoredAudioError as error:

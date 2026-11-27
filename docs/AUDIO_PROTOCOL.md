@@ -7,13 +7,15 @@ with fake cameras; this is distinct from the historical physical evidence below.
 
 ## Enabled profile
 
-Reolink Video Doorbell WiFi-W, hardware DB_566128M5MP_W_W, firmware
-v3.0.0.6460_2605211912, standalone channel 0. Identity is checked against the
-live device before writing or exporting. Other models/firmware fail closed.
+Reolink Video Doorbell WiFi-W, hardware DB_566128M5MP_W_W, standalone channel 0.
+Physical testing used firmware v3.0.0.6460_2605211912. The integration checks the
+live model and hardware before writing or exporting and accepts other firmware
+versions on this hardware. If the reported firmware changes between a write and
+its reconnect check, the operation cannot confirm the result.
 
 | Operation | Native request | Boundary |
 | --- | --- | --- |
-| Device identity | Baichuan 80 | Live model/hardware/firmware validation |
+| Device identity | Baichuan 80 | Live model and hardware validation, plus firmware stability across write verification |
 | Custom catalog | Baichuan 347 | Capacity and user UUIDs, no slot guessing |
 | Full native catalog | HTTP GetAudioFileList, action 0 | Factory and custom metadata |
 | Encoding ability | Baichuan 267 | Additional format guard, not upload proof |
